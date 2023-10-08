@@ -31,7 +31,7 @@ namespace Aquarium
                 switch (userInput)
                 {
                     case "1":
-                        if (_aquarium.IsFull())
+                        if (_aquarium.IsEmpty())
                         {
                             Console.WriteLine("Чтобы достать рыбу нажмите соответствующую цифру.");
                             _aquarium.DeleteFish(Convert.ToInt32(Console.ReadLine()));
@@ -44,11 +44,19 @@ namespace Aquarium
                         }
                         break;
                     case "2":
-                        Console.Clear();
-                        ShowFishes();
-                        Console.WriteLine("\nДля добавления рыбы нажмите соответствующую цифру.");
-                        _aquarium.PerformIteration();
-                        _aquarium.AddFish(GetFish(Console.ReadLine()));
+                        if (_aquarium.IsFull())
+                        {
+                            Console.Clear();
+                            ShowFishes();
+                            Console.WriteLine("\nДля добавления рыбы нажмите соответствующую цифру.");
+                            _aquarium.PerformIteration();
+                            _aquarium.AddFish(GetFish(Console.ReadLine()));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Аквариум полный!");
+                            Console.ReadKey();
+                        }
                         break;
                     case "3":
                         _aquarium.PerformIteration();
@@ -108,7 +116,7 @@ namespace Aquarium
 
     class Aquarium
     {
-        private int capacity = 5;
+        private int _maxNumberFish = 5;
         private List<Fish> _fishs = new List<Fish>();
 
         public void AddFish(Fish fish)
@@ -159,7 +167,12 @@ namespace Aquarium
 
         public bool IsFull()
         {
-            return _fishs.Count > 0;
+            return _fishs.Count != _maxNumberFish;
+        }
+
+        public bool IsEmpty()
+        {
+            return _fishs.Count != 0;
         }
     }
 
