@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aquarium
 {
@@ -17,7 +14,6 @@ namespace Aquarium
 
     class Manager
     {
-        private Fish[] _fishs = new Fish[] { new Fish("Комета", 35), new Fish("Вуалехвост", 40), new Fish("Телескоп", 25), new Fish("Гуппи", 35), new Fish("Пецилия", 30), new Fish("Дискус", 20), new Fish("Хемихромис", 15) };
         private Aquarium _aquarium = new Aquarium();
 
         public void Perform()
@@ -28,21 +24,31 @@ namespace Aquarium
             {
                 Console.Clear();
                 ShowMenu();
+                Console.WriteLine("\n******************************************\n");
                 _aquarium.ShowInfo();
                 userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
                     case "1":
-                        Console.WriteLine("Чтобы достать рыбу нажмите соответствующую цифру.");
-                        _aquarium.DeleteFish(Convert.ToInt32(Console.ReadLine()));
-                        _aquarium.PerformIteration();
+                        if (_aquarium.IsFull())
+                        {
+                            Console.WriteLine("Чтобы достать рыбу нажмите соответствующую цифру.");
+                            _aquarium.DeleteFish(Convert.ToInt32(Console.ReadLine()));
+                            _aquarium.PerformIteration();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Аквариум пустой!");
+                            Console.ReadKey();
+                        }
                         break;
                     case "2":
+                        Console.Clear();
                         ShowFishes();
-                        Console.WriteLine("Для добавления рыбы нажмите соответствующую цифру.");
-                        _aquarium.AddFish(GetFish(Convert.ToInt32(Console.ReadLine())));
+                        Console.WriteLine("\nДля добавления рыбы нажмите соответствующую цифру.");
                         _aquarium.PerformIteration();
+                        _aquarium.AddFish(GetFish(Console.ReadLine()));
                         break;
                     case "3":
                         _aquarium.PerformIteration();
@@ -54,26 +60,46 @@ namespace Aquarium
 
         private void ShowMenu()
         {
-            Console.WriteLine("Нажмите цифру соответствующую пункту меню.");
+            Console.WriteLine("Нажмите цифру соответствующую пункту меню.\n");
             Console.WriteLine("1 Достать рыбу из аквариума\n2 Добавить рыбу в аквариум\n3 Следующая итерация\n4 Выход");
         }
 
         private void ShowFishes()
         {
-            for (int i = 0; i < _fishs.Length; i++)
-            {
-                Console.Write(i + " ");
-                _fishs[i].ShowInfo();
-            }
+            Console.WriteLine("1 Комета, возраст 35\n2 Вуалехвост, возраст 40\n3 Телескоп, возраст 25\n4 Гуппи, возраст 10\n5 Пецилия, возраст 30\n6 Дискус, возраст 20\n7 Хемихромис, возраст 15");
         }
 
-        private Fish GetFish(int number)
+        private Fish GetFish(string number)
         {
             Fish fish = null;
 
-            if (number >= 0 & number < _fishs.Length)
+            switch (number)
             {
-                fish = _fishs[number];
+                case "1":
+                    fish = new Fish("Комета", 35);
+                    break;
+                case "2":
+                    fish = new Fish("Вуалехвост", 40);
+                    break;
+                case "3":
+                    fish = new Fish("Телескоп", 25);
+                    break;
+                case "4":
+                    fish = new Fish("Гуппи", 10);
+                    break;
+                case "5":
+                    fish = new Fish("Пецилия", 30);
+                    break;
+                case "6":
+                    fish = new Fish("Дискус", 20);
+                    break;
+                case "7":
+                    fish = new Fish("Хемихромис", 15);
+                    break;
+                default:
+                    Console.WriteLine("введите цифру от 1 до 7");
+                    Console.ReadKey();
+                    break;
             }
 
             return fish;
@@ -82,33 +108,41 @@ namespace Aquarium
 
     class Aquarium
     {
+        private int capacity = 5;
         private List<Fish> _fishs = new List<Fish>();
 
         public void AddFish(Fish fish)
         {
-            _fishs.Add(fish);
+            if (fish != null)
+            {
+                _fishs.Add(fish);
+            }
         }
 
         public void ShowInfo()
         {
+            int constanta = 1;
             Console.WriteLine($"В аквариуме {_fishs.Count} рыб.");
 
             for (int i = 0; i < _fishs.Count; i++)
             {
-                Console.Write($"{i} ");
+                Console.Write($"{i + constanta} ");
                 _fishs[i].ShowInfo();
             }
         }
 
         public void DeleteFish(int number)
         {
-            if (number >= 0 & number < _fishs.Count)
+            int constanta = 1;
+
+            if (number - constanta >= 0 & number - constanta < _fishs.Count)
             {
-                _fishs.RemoveAt(number);
+                _fishs.RemoveAt(number - constanta);
             }
             else
             {
-                Console.WriteLine("Введите порядковый номер рыбки");
+                Console.WriteLine("Введите порядковый номер рыбки!");
+                Console.ReadKey();
             }
         }
 
@@ -121,6 +155,11 @@ namespace Aquarium
                     fish.ReduceLife();
                 }
             }
+        }
+
+        public bool IsFull()
+        {
+            return _fishs.Count > 0;
         }
     }
 
@@ -137,7 +176,14 @@ namespace Aquarium
 
         public virtual void ShowInfo()
         {
-            Console.WriteLine($"{Name}, возраст: {Age}");
+            string text = null;
+
+            if (IsDead())
+            {
+                text = " , рыбка умерла :(";
+            }
+
+            Console.WriteLine($"{Name}, возраст: {Age}{text}");
         }
 
         public bool IsDead()
