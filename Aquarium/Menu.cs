@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aquarium
 {
     class Menu
     {
-        const string AddCommand = "add";
-        const string DeleteCommand = "del";
-        const string ExitCommand = "exit";
-        const string ReduceLife = "reduce";
+        private const string AddCommand = "add";
+        private const string DeleteCommand = "del";
+        private const string ExitCommand = "exit";
+        private const string ReduceLife = "reduce";
         private string _userInput;
         private Aquarium _aquarium = new Aquarium();
-
 
         public void ShowMenu()
         {
@@ -45,7 +40,6 @@ namespace Aquarium
                     case ReduceLife:
                         _aquarium.ReduceLife();
                         break;
-
                 }
             } while (_userInput != ExitCommand);
         }

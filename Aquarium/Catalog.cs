@@ -40,25 +40,15 @@ namespace Aquarium
             int minNumber = 0;
             int maxNumber = _fishs.Length;
             int index;
+
             do
             {
                 Console.WriteLine("Введите индекс рыбки!");
-                index = GetNumber();
+                index = Utility.GetNumber();
             }
             while (index < minNumber || index >= maxNumber);
 
             return _fishs[index];
-        }
-
-        private int GetNumber()
-        {
-            int index;
-
-            while (int.TryParse(Console.ReadLine(), out index) == false)
-            {
-                Console.WriteLine("Введите число!");
-            }
-            return index;
         }
     }
 }

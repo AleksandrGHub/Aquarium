@@ -45,7 +45,7 @@ namespace Aquarium
 
                 do
                 {
-                    index = GetNumber();
+                    index = Utility.GetNumber();
                 }
                 while (index < 0 || index >= _fishs.Count);
 
@@ -80,17 +80,6 @@ namespace Aquarium
         public void ShowCatalog()
         {
             _catalog.Show();
-        }
-
-        private int GetNumber()
-        {
-            int index;
-
-            while (int.TryParse(Console.ReadLine(), out index) == false)
-            {
-                Console.WriteLine("Введите число!");
-            }
-            return index;
         }
     }
 }
