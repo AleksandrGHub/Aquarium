@@ -6,10 +6,10 @@ namespace Aquarium
     {
         private int _minLife = 0;
 
-        public Fish(string name, int age)
+        public Fish(string name, int life)
         {
             Name = name;
-            Life = age;
+            Life = life;
         }
 
         public string Name { get; private set; }

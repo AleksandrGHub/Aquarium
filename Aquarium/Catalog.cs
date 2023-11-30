@@ -22,15 +22,19 @@ namespace Aquarium
             int topPosition = 0;
             int leftPosition = 0;
             int offsetLeftPosition = 18;
+
             Console.Clear();
 
             for (int i = 0; i < _fishs.Length; i++)
             {
                 topPosition++;
+
                 Console.SetCursorPosition(leftPosition, topPosition);
                 Console.Write($"[{i}] {_fishs[i].Name}");
+
                 Console.SetCursorPosition(leftPosition + offsetLeftPosition, topPosition);
                 Console.Write($"возраст {_fishs[i].Life}");
+
                 Console.WriteLine();
             }
         }

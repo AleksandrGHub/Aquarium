@@ -5,19 +5,19 @@ namespace Aquarium
 {
     class Aquarium
     {
+        private int _maxNumberFishs = 5;
         private Catalog _catalog = new Catalog();
         private List<Fish> _fishs = new List<Fish>();
-        private int _maxNumberFishs = 5;
 
         public void AddFish()
         {
             Fish cloneFish;
+
             ShowCatalog();
 
             if (_fishs.Count < _maxNumberFishs)
             {
                 cloneFish = _catalog.GetFish().Clone();
-
                 _fishs.Add(cloneFish);
             }
             else

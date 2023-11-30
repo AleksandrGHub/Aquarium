@@ -8,6 +8,7 @@ namespace Aquarium
         private const string DeleteCommand = "del";
         private const string ExitCommand = "exit";
         private const string ReduceLife = "reduce";
+
         private Aquarium _aquarium = new Aquarium();
 
         public void Show()
@@ -21,28 +22,31 @@ namespace Aquarium
 
         public void Work()
         {
-            string _userInput;
+            string userInput;
 
             do
             {
                 Console.Clear();
                 Show();
                 _aquarium.ShowInfo();
-                _userInput = Console.ReadLine();
 
-                switch (_userInput)
+                userInput = Console.ReadLine();
+
+                switch (userInput)
                 {
                     case AddCommand:
                         _aquarium.AddFish();
                         break;
+
                     case DeleteCommand:
                         _aquarium.DeleteFish();
                         break;
+
                     case ReduceLife:
                         _aquarium.ReduceLife();
                         break;
                 }
-            } while (_userInput != ExitCommand);
+            } while (userInput != ExitCommand);
         }
     }
 }
