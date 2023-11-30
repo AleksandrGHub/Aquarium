@@ -6,6 +6,8 @@ namespace Aquarium
     class Aquarium
     {
         private int _maxNumberFishs = 5;
+        private int _minNumberFish = 0;
+
         private Catalog _catalog = new Catalog();
         private List<Fish> _fishs = new List<Fish>();
 
@@ -33,7 +35,7 @@ namespace Aquarium
         {
             int index;
 
-            if (_fishs.Count == 0)
+            if (_fishs.Count == _minNumberFish)
             {
                 Console.WriteLine("В аквариуме нет рыбок!");
                 Console.ReadKey();
@@ -46,7 +48,7 @@ namespace Aquarium
                 {
                     index = Utility.GetNumber();
                 }
-                while (index < 0 || index >= _fishs.Count);
+                while (index < _minNumberFish || index >= _fishs.Count);
 
                 _fishs.RemoveAt(index);
             }
@@ -54,7 +56,7 @@ namespace Aquarium
 
         public void ReduceLife()
         {
-            if (_fishs.Count > 0)
+            if (_fishs.Count > _minNumberFish)
             {
                 foreach (Fish fish in _fishs)
                 {
