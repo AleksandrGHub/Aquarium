@@ -30,7 +30,7 @@ namespace Aquarium
                 Console.SetCursorPosition(leftPosition, topPosition);
                 Console.Write($"[{i}] {_fishs[i].Name}");
                 Console.SetCursorPosition(leftPosition + offsetLeftPosition, topPosition);
-                Console.Write($"возраст {_fishs[i].Age}");
+                Console.Write($"возраст {_fishs[i].Life}");
                 Console.WriteLine();
             }
         }

@@ -6,20 +6,19 @@ namespace Aquarium
     class Aquarium
     {
         private Catalog _catalog = new Catalog();
-        private List<IFish> _fishs = new List<IFish>();
-        private IFish _cloneFish;
-        private int _maxNumberFish = 5;
+        private List<Fish> _fishs = new List<Fish>();
+        private int _maxNumberFishs = 5;
 
         public void AddFish()
         {
-            ReduceLife();
+            Fish cloneFish;
             ShowCatalog();
 
-            if (_fishs.Count < _maxNumberFish)
+            if (_fishs.Count < _maxNumberFishs)
             {
-                _cloneFish = _catalog.GetFish().Clone();
+                cloneFish = _catalog.GetFish().Clone();
 
-                _fishs.Add(_cloneFish);
+                _fishs.Add(cloneFish);
             }
             else
             {
@@ -51,8 +50,6 @@ namespace Aquarium
 
                 _fishs.RemoveAt(index);
             }
-
-            ReduceLife();
         }
 
         public void ReduceLife()

@@ -2,41 +2,41 @@
 
 namespace Aquarium
 {
-    class Fish : IFish
+    class Fish
     {
-        private int minAge = 0;
+        private int _minLife = 0;
 
         public Fish(string name, int age)
         {
             Name = name;
-            Age = age;
+            Life = age;
         }
 
         public string Name { get; private set; }
-        public int Age { get; private set; }
+        public int Life { get; private set; }
 
-        public IFish Clone()
+        public Fish Clone()
         {
-            return new Fish(Name, Age);
+            return new Fish(Name, Life);
         }
 
         public void ShowInfo()
         {
             string text = null;
 
-            if (Age <= minAge)
+            if (Life <= _minLife)
             {
                 text = " , рыбка умерла :(";
             }
 
-            Console.WriteLine($"{Name}, возраст: {Age}{text}");
+            Console.WriteLine($"{Name}, возраст: {Life}{text}");
         }
 
         public void ReduceLife()
         {
-            if (Age > minAge)
+            if (Life > _minLife)
             {
-                Age--;
+                Life--;
             }
         }
     }

@@ -8,24 +8,25 @@ namespace Aquarium
         private const string DeleteCommand = "del";
         private const string ExitCommand = "exit";
         private const string ReduceLife = "reduce";
-        private string _userInput;
         private Aquarium _aquarium = new Aquarium();
 
-        public void ShowMenu()
+        public void Show()
         {
             Console.WriteLine("**************Меню**************");
-            Console.WriteLine("Добавить рыбку   (команда: add)");
-            Console.WriteLine("Удалить рыбку    (команда: del)");
-            Console.WriteLine("Уменьшить жизнь  (команда: reduce)");
-            Console.WriteLine("Выйти            (команда: exit)");
+            Console.WriteLine($"Добавить рыбку   (команда: {AddCommand})");
+            Console.WriteLine($"Удалить рыбку    (команда: {DeleteCommand})");
+            Console.WriteLine($"Уменьшить жизнь  (команда: {ReduceLife})");
+            Console.WriteLine($"Выйти            (команда: {ExitCommand})");
         }
 
         public void Work()
         {
+            string _userInput;
+
             do
             {
                 Console.Clear();
-                ShowMenu();
+                Show();
                 _aquarium.ShowInfo();
                 _userInput = Console.ReadLine();
 
